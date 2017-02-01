@@ -14,18 +14,18 @@ to `docker run`:
 - `LDAP_DOMAIN` sets the LDAP root domain. (e.g. if you provide `foo.bar.com`
   here, the root of your directory will be `dc=foo,dc=bar,dc=com`)
 - `LDAP_ORGANISATION` sets the human-readable name for your organisation (e.g.
-  `Acme Widgets Inc.`)
+  `VCP Schleswig-Holstein`)
 - `LDAP_ROOTPASS` sets the LDAP admin user password (i.e. the password for
-  `cn=admin,dc=example,dc=com` if your domain was `example.com`)
+  `cn=admin,dc=vcp,dc=de` if your domain was `vcp.sh`)
 
 For example, to start a container running slapd for the `mycorp.com` domain,
 with data stored in `/data/ldap` on the host, use the following:
 
     docker run -v /data/ldap:/var/lib/ldap \
-               -e LDAP_DOMAIN=mycorp.com \
-               -e LDAP_ORGANISATION="My Mega Corporation" \
-               -e LDAP_ROOTPASS=s3cr3tpassw0rd \
-               -d nickstenning/slapd
+               -e LDAP_DOMAIN=vcp.sh \
+               -e LDAP_ORGANISATION="VCP Schleswig-Holstein" \
+               -e LDAP_ROOTPASS=superSecretRootPassword \
+               -d vcpsh/slapd
 
 You can find out which port the LDAP server is bound to on the host by running
 `docker ps` (or `docker port <container_id> 389`). You could then load an LDIF
