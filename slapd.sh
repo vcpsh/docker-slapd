@@ -6,10 +6,9 @@ status () {
   echo "---> ${@}" >&2
 }
 
-set -x
-: LDAP_ROOTPASS=${LDAP_ROOTPASS}
-: LDAP_DOMAIN=${LDAP_DOMAIN}
-: LDAP_ORGANISATION=${LDAP_ORGANISATION}
+echo $LDAP_ROOTPASS
+echo $LDAP_ORGANISATION
+echo $LDAP_DOMAIN
 
 if [ ! -e /var/lib/ldap/docker_bootstrapped ]; then
   status "configuring slapd for first run"
@@ -38,5 +37,5 @@ else
 fi
 
 status "starting slapd"
-set -x
-exec /usr/sbin/slapd -h "ldap:///" -u openldap -g openldap -d 0
+ulimit -n 1014
+service slapd start

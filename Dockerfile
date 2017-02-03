@@ -17,16 +17,11 @@ ENV LDAP_ORGANISATION VCP Schleswig-Holstein
 ENV LDAP_DOMAIN vcp-sh.de
 
 EXPOSE 389
-EXPOSE 636
 
 VOLUME /var/lib/ldap
-VOLUME /etc/ssl
 
-RUN mkdir /etc/service/slapd
-ADD slapd.sh /etc/service/slapd/run
-
-# limit memory usage of slapd
-CMD ulimit -n 1024 && slapd -d1
+RUN mkdir -p /etc/my_init.d
+ADD slapd.sh /etc/my_init.d/slapd.sh
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
