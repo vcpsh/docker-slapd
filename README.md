@@ -25,7 +25,7 @@ with data stored in `/data/ldap` on the host, use the following:
                -e LDAP_DOMAIN=vcp.sh \
                -e LDAP_ORGANISATION="VCP Schleswig-Holstein" \
                -e LDAP_ROOTPASS=superSecretRootPassword \
-               -d vcpsh/slapd
+               vcpsh/slapd:latest
 
 You can find out which port the LDAP server is bound to on the host by running
 `docker ps` (or `docker port <container_id> 389`). You could then load an LDIF

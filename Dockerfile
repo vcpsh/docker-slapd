@@ -1,7 +1,3 @@
-# Use phusion/baseimage as base image. To make your builds reproducible, make
-# sure you lock down to a specific version, not to `latest`!
-# See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
-# a list of version numbers.
 FROM phusion/baseimage:0.9.19
 MAINTAINER AK Internet <internet@vcp-sh.de>
 
@@ -28,6 +24,9 @@ VOLUME /etc/ssl
 
 RUN mkdir /etc/service/slapd
 ADD slapd.sh /etc/service/slapd/run
+
+# limit memory usage of slapd
+CMD ulimit -n 1024 && slapd -d1
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
